@@ -14,5 +14,8 @@
   },
   "files.autoSave": "onFocusChange",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "cSpell.words": [
+    "Rong"
+  ]
 }
