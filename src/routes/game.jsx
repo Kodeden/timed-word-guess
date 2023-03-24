@@ -14,13 +14,19 @@ const getGameStatus = ({ displayedWord, badGuesses, maxBadGuesses }) => {
   return "playing";
 };
 
-const replaceUnderscoresWithCorrectGuess = (word, guess) => {
-  return word.split
-    .map((letter, index) => {
-      if (word[index].toLowerCase() === guess.toLowerCase()) {
-        return word[index];
+const replaceUnderscoresWithCorrectGuess = ({
+  displayedWord,
+  word2Guess,
+  guessedLetter,
+}) => {
+  return displayedWord
+    .split("")
+    .map((letterOrUnderscore, index) => {
+      if (word2Guess[index].toLowerCase() === guessedLetter.toLowerCase()) {
+        return word2Guess[index];
       }
-      return letter;
+
+      return letterOrUnderscore;
     })
     .join("");
 };
@@ -29,35 +35,44 @@ const replaceUnderscoresWithCorrectGuess = (word, guess) => {
 export default function Game({ gameSettings }) {
   const { word, maxGuesses, maxTime } = gameSettings;
 
+  const [wordDisplay, setWordDisplay] = React.useState(
+    word.replace(/[a-z]/gi, "_")
+  );
+  const [rongGuesses, setRongGuesses] = React.useState(0);
+
   React.useEffect(() => {
     mainRef.current.focus();
   }, []);
 
   const mainRef = React.useRef(null);
 
-  const [wordDisplay, setWordDisplay] = React.useState(
-    word.replace(/[a-z]/gi, "_")
-  );
-  const [rongGuesses, setRongGuesses] = React.useState(0);
-  const [gameStatus, setGameStatus] = React.useState("playing");
-
   const handleGuess = (e) => {
-    const guess = e.target.value;
+    const guess = e.key;
+
+    // Check if the pressed key is a letter (case-insensitive)
+    if (!/^[a-zA-Z]$/.test(guess)) {
+      return; // Ignore non-letter keys
+    }
 
     if (word.includes(guess)) {
-      setWordDisplay((prev) => replaceUnderscoresWithCorrectGuess(prev, guess));
+      setWordDisplay((prev) =>
+        replaceUnderscoresWithCorrectGuess({
+          displayedWord: prev,
+          word2Guess: word,
+          guessedLetter: guess,
+        })
+      );
     } else {
       setRongGuesses((prev) => prev + 1);
     }
-
-    setGameStatus(
-      getGameStatus({
-        displayedWord: wordDisplay,
-        badGuesses: rongGuesses,
-        maxBadGuesses: maxGuesses,
-      })
-    );
   };
+
+  // No need for state here. It's a 'computed' value based on other state.
+  const gameStatus = getGameStatus({
+    displayedWord: wordDisplay,
+    badGuesses: rongGuesses,
+    maxBadGuesses: maxGuesses,
+  });
 
   return gameStatus === "playing" ? (
     <main
