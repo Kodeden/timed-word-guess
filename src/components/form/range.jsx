@@ -1,22 +1,30 @@
 import camelCase from "lodash/camelCase";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-export default function Range({ label, id, min, max, step, value, onChange }) {
+export default function Range({ label, id, min, max, step }) {
+  const [value, setValue] = useState(min);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
-    <div>
-      <label htmlFor={id} className="sr-only">
-        {label}
-      </label>
+    <div className="flex flex-col gap-y-1 border-b pb-2">
+      <label htmlFor={id}>{label}</label>
       <input
         type="range"
         id={id}
         min={min}
         max={max}
         step={step}
-        value={value}
-        onChange={onChange}
         name={camelCase(id)}
+        value={value}
+        onChange={handleChange}
       />
+      <p>
+        Value: <output id="value">{value}</output>
+      </p>
     </div>
   );
 }
@@ -25,7 +33,6 @@ Range.defaultProps = {
   min: 0,
   max: 5,
   step: 1,
-  value: 3,
 };
 
 Range.propTypes = {
@@ -34,6 +41,4 @@ Range.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   step: PropTypes.number,
-  value: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
 };

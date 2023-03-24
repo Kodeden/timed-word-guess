@@ -1,25 +1,14 @@
-import { Input, Range } from "../components/form.jsx";
+import PropTypes from "prop-types";
+import { Input, Range } from "../components/form";
 
-export default function Setup() {
-  const [gameDeets, setGameDeets] = useState({});
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Gather the form details, matching the values to the names of the inputs (HTML)
-    const formData = new FormData(e.target);
-
-    // Convert the formData to an object
-    const data = Object.fromEntries(formData);
-
-    // Set the gameDeets state to the data
-    setGameDeets(data);
-  };
-
+export default function Setup({ handleSubmit }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center space-y-4"
+    >
       <Input
-        label="Enter the word or phrase to guess"
+        label="Enter the Word or Phrase to Guess"
         id="word"
         placeholder="What's the word? Is it the 🐦?"
       />
@@ -32,3 +21,7 @@ export default function Setup() {
     </form>
   );
 }
+
+Setup.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

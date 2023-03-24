@@ -1,22 +1,27 @@
-const WORD = "bird";
+import { useState } from "react";
+import { Game, Setup } from "./routes";
+import Layout from "./layout";
 
 function App() {
+  const [gameSetup, setGameSetup] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Gather the form details, matching the values to the names of the inputs (HTML)
+    const formData = new FormData(e.target);
+
+    // Convert the formData to an object
+    const data = Object.fromEntries(formData);
+
+    // Set the gameDeets state to the data
+    setGameSetup(data);
+  };
+
   return (
-    <main className="flex h-screen flex-col items-center justify-center gap-y-8">
-      <h1 className="text-4xl font-black">Guess the Word</h1>
-
-      <p className="text-8xl font-extrabold uppercase tracking-widest"></p>
-
-      <div className="flex gap-x-2">
-        <label htmlFor="guess">Guess a letter:</label>
-        <input
-          type="text"
-          className="w-8 border-2 border-gray-300"
-          maxLength={1}
-          id="guess"
-        />
-      </div>
-    </main>
+    <Layout>
+      <Setup handleSubmit={handleSubmit} />
+    </Layout>
   );
 }
 
