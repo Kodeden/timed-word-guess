@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import GameOver from "../components/GameOver";
+import React from "react";
+import GameOver from "../components/game-over";
 
 const getGameStatus = ({ displayedWord, badGuesses, maxBadGuesses }) => {
   if (!displayedWord.includes("_")) {
@@ -25,10 +25,21 @@ const replaceUnderscoresWithCorrectGuess = (word, guess) => {
     .join("");
 };
 
-function Game({ word, maxRongGuesses }) {
-  const [wordDisplay, setWordDisplay] = useState(word.replace(/[a-z]/gi, "_"));
-  const [rongGuesses, setRongGuesses] = useState(0);
-  const [gameStatus, setGameStatus] = useState(true);
+// TODO: Add timer ⏱️
+export default function Game({ gameSettings }) {
+  const { word, maxGuesses, maxTime } = gameSettings;
+
+  React.useEffect(() => {
+    mainRef.current.focus();
+  }, []);
+
+  const mainRef = React.useRef(null);
+
+  const [wordDisplay, setWordDisplay] = React.useState(
+    word.replace(/[a-z]/gi, "_")
+  );
+  const [rongGuesses, setRongGuesses] = React.useState(0);
+  const [gameStatus, setGameStatus] = React.useState("playing");
 
   const handleGuess = (e) => {
     const guess = e.target.value;
@@ -40,39 +51,38 @@ function Game({ word, maxRongGuesses }) {
     }
 
     setGameStatus(
-      getGameStatus({ displayedWord: wordDisplay, rongGuesses, maxRongGuesses })
+      getGameStatus({
+        displayedWord: wordDisplay,
+        badGuesses: rongGuesses,
+        maxBadGuesses: maxGuesses,
+      })
     );
   };
 
   return gameStatus === "playing" ? (
-    <main className="flex h-screen flex-col items-center justify-center gap-y-8">
+    <main
+      className="flex h-screen flex-col items-center justify-center gap-y-8 outline-none"
+      onKeyDown={handleGuess}
+      tabIndex={0}
+      ref={mainRef}
+    >
       <h1 className="text-4xl font-black">Guess the Word</h1>
 
-      <p className="text-8xl font-extrabold uppercase tracking-widest">
+      <p className="text-4xl font-extrabold uppercase tracking-widest">
         {wordDisplay}
       </p>
-
-      <div className="flex gap-x-2">
-        <label htmlFor="guess">Guess a letter:</label>
-        <input
-          type="text"
-          className="w-8 border-2 border-gray-300"
-          maxLength={1}
-          id="guess"
-          onChange={handleGuess}
-        />
-      </div>
     </main>
   ) : (
     <GameOver status={gameStatus} />
   );
 }
 
-Game.defaultProps = {
-  maxRongGuesses: null,
-};
-
 Game.propTypes = {
-  word: PropTypes.string.isRequired,
-  maxRongGuesses: PropTypes.number,
+  gameSettings: PropTypes.exact({
+    word: PropTypes.string.isRequired,
+
+    // Stupid HTML forms have values as strings
+    maxGuesses: PropTypes.string.isRequired,
+    maxTime: PropTypes.string.isRequired,
+  }),
 };

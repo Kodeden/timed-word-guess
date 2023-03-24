@@ -12,10 +12,19 @@ export default function GameOver({ status }) {
   });
 
   return (
-    <section>
-      <h2 className="text-4xl font-black">Game Over</h2>
-      <p className="text-2xl font-bold capitalize">You {status}!</p>
+    <section className="flex flex-col justify-center">
+      <h2
+        className={`${
+          status === "won" ? "text-green-400" : "text-red-400"
+        } my-2 text-center text-2xl font-black capitalize `}
+      >
+        You {status}!
+      </h2>
       <img src={gif} alt={status} />
+
+      <button className="button" onClick={() => window.location.reload()}>
+        Shall we play again?
+      </button>
     </section>
   );
 }

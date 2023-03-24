@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Game, Setup } from "./routes";
 import Layout from "./layout";
+import { Game, Setup } from "./routes";
 
 function App() {
   const [gameSetup, setGameSetup] = useState({});
@@ -20,7 +20,11 @@ function App() {
 
   return (
     <Layout>
-      <Setup handleSubmit={handleSubmit} />
+      {gameSetup.word ? (
+        <Game gameSettings={gameSetup} />
+      ) : (
+        <Setup handleSubmit={handleSubmit} />
+      )}
     </Layout>
   );
 }
