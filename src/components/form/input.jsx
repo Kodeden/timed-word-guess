@@ -9,11 +9,11 @@ export default function Input({ label, id, type, placeholder, required }) {
       </label>
       <input
         id={id}
-        placeholder={placeholder || label}
+        placeholder={placeholder}
         required={required}
         name={camelCase(id)}
         type={type}
-        className="w-full rounded-sm border-2 border-none border-gray-300 p-2 text-gray-800"
+        className="w-full max-w-fit rounded-sm border-2 border-none border-gray-300 p-2 text-gray-800"
       />
     </div>
   );

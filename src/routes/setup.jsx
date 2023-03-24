@@ -7,11 +7,7 @@ export default function Setup({ handleSubmit }) {
       onSubmit={handleSubmit}
       className="flex flex-col items-center space-y-4"
     >
-      <Input
-        label="Enter the Word or Phrase to Guess"
-        id="word"
-        placeholder="What's the word? Is it the 🐦?"
-      />
+      <Input label="Enter the Word or Phrase to Guess" id="word" />
       <Range label="Max Guesses" id="maxGuesses" min={1} max={10} />
       <Range label="Max Time (minutes)" id="maxTime" min={1} max={10} />
 
