@@ -9,7 +9,8 @@
     "start": "vite",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "dep-graph": "depcruise --exclude \"^node_modules\" --output-type dot src | dot -T svg > dependency-graph.svg"
   },
   "dependencies": {
     "ky": "^0.33.3",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^2.2.0",
     "autoprefixer": "^10.4.13",
+    "dependency-cruiser": "^12.11.0",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
