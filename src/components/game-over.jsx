@@ -12,7 +12,7 @@ export default function GameOver({ status }) {
   });
 
   return (
-    <section className="flex flex-col justify-center">
+    <section className="container mx-auto flex flex-col justify-center">
       <h2
         className={`${
           status === "won" ? "text-green-400" : "text-red-400"
