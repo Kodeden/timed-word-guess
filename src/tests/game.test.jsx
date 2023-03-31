@@ -22,7 +22,7 @@ it("renders underscores for each letter in the word 2 guess", () => {
   expect(screen.getByText(initialUnderscores)).toBeInTheDocument();
 });
 
-it("reveals a correct letter whenever typed", async () => {
+it("reveals a correct letter whenever the user types 1️⃣", async () => {
   const firstGuessedLetter = "h";
   const { user } = setup(<Game gameSettings={input} />);
 
