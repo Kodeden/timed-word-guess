@@ -28,11 +28,22 @@ it("reveals a correct letter whenever the user types 1️⃣", async () => {
 
   await user.keyboard(firstGuessedLetter);
 
-  const updatedDisplayedWord = replaceUnderscoresWithCorrectGuess({
+  const updatedDisplayedWord1 = replaceUnderscoresWithCorrectGuess({
     displayedWord: initialUnderscores,
     word2Guess: input.word,
     guessedLetter: firstGuessedLetter,
   });
 
-  expect(screen.getByText(updatedDisplayedWord)).toBeInTheDocument();
+  expect(screen.getByText(updatedDisplayedWord1)).toBeInTheDocument();
+
+  const secondGuessedLetter = "e";
+  await user.keyboard(secondGuessedLetter);
+
+  const updatedDisplayedWord2 = replaceUnderscoresWithCorrectGuess({
+    displayedWord: updatedDisplayedWord1,
+    word2Guess: input.word,
+    guessedLetter: secondGuessedLetter,
+  });
+
+  expect(screen.getByText(updatedDisplayedWord2)).toBeInTheDocument();
 });
