@@ -1,0 +1,240 @@
+// Vitest Snapshot v1
+
+exports[`renders the setup screen 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <h1
+        class="my-4 text-center text-2xl md:text-5xl"
+      >
+        Hangman Game
+      </h1>
+      <main
+        class="p-4"
+      >
+        <form
+          class="flex flex-col items-center space-y-4"
+        >
+          <div
+            class="flex w-full flex-col items-center gap-y-2 text-center"
+          >
+            <label
+              class="mr-4 font-medium"
+              for="word"
+            >
+              Enter the Word or Phrase to Guess
+            </label>
+            <input
+              class="w-full max-w-fit rounded-sm border-2 border-none border-gray-300 p-2 text-gray-800"
+              id="word"
+              name="word"
+              required=""
+              type="text"
+            />
+          </div>
+          <div
+            class="flex flex-col gap-y-1 border-b pb-2"
+          >
+            <label
+              for="maxGuesses"
+            >
+              Max Guesses
+            </label>
+            <input
+              id="maxGuesses"
+              max="10"
+              min="1"
+              name="maxGuesses"
+              step="1"
+              type="range"
+              value="1"
+            />
+            <p>
+              Value: 
+              <output
+                id="value"
+              >
+                1
+              </output>
+            </p>
+          </div>
+          <div
+            class="flex flex-col gap-y-1 border-b pb-2"
+          >
+            <label
+              for="maxTime"
+            >
+              Max Time (minutes)
+            </label>
+            <input
+              id="maxTime"
+              max="10"
+              min="1"
+              name="maxTime"
+              step="1"
+              type="range"
+              value="1"
+            />
+            <p>
+              Value: 
+              <output
+                id="value"
+              >
+                1
+              </output>
+            </p>
+          </div>
+          <button
+            class="button"
+            type="submit"
+          >
+            Go!
+          </button>
+        </form>
+      </main>
+    </div>
+  </body>,
+  "container": <div>
+    <h1
+      class="my-4 text-center text-2xl md:text-5xl"
+    >
+      Hangman Game
+    </h1>
+    <main
+      class="p-4"
+    >
+      <form
+        class="flex flex-col items-center space-y-4"
+      >
+        <div
+          class="flex w-full flex-col items-center gap-y-2 text-center"
+        >
+          <label
+            class="mr-4 font-medium"
+            for="word"
+          >
+            Enter the Word or Phrase to Guess
+          </label>
+          <input
+            class="w-full max-w-fit rounded-sm border-2 border-none border-gray-300 p-2 text-gray-800"
+            id="word"
+            name="word"
+            required=""
+            type="text"
+          />
+        </div>
+        <div
+          class="flex flex-col gap-y-1 border-b pb-2"
+        >
+          <label
+            for="maxGuesses"
+          >
+            Max Guesses
+          </label>
+          <input
+            id="maxGuesses"
+            max="10"
+            min="1"
+            name="maxGuesses"
+            step="1"
+            type="range"
+            value="1"
+          />
+          <p>
+            Value: 
+            <output
+              id="value"
+            >
+              1
+            </output>
+          </p>
+        </div>
+        <div
+          class="flex flex-col gap-y-1 border-b pb-2"
+        >
+          <label
+            for="maxTime"
+          >
+            Max Time (minutes)
+          </label>
+          <input
+            id="maxTime"
+            max="10"
+            min="1"
+            name="maxTime"
+            step="1"
+            type="range"
+            value="1"
+          />
+          <p>
+            Value: 
+            <output
+              id="value"
+            >
+              1
+            </output>
+          </p>
+        </div>
+        <button
+          class="button"
+          type="submit"
+        >
+          Go!
+        </button>
+      </form>
+    </main>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
