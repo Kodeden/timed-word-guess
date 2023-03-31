@@ -14,7 +14,7 @@ const getGameStatus = ({ displayedWord, badGuesses, maxBadGuesses }) => {
   return "playing";
 };
 
-const replaceUnderscoresWithCorrectGuess = ({
+export const replaceUnderscoresWithCorrectGuess = ({
   displayedWord,
   word2Guess,
   guessedLetter,
