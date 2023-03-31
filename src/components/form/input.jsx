@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 export default function Input({ label, id, type, placeholder, required }) {
   return (
-    <div className="w-full space-y-2 text-center">
-      <label htmlFor={id} className="font-medium">
+    <div className="flex w-full flex-col items-center gap-y-2 text-center">
+      <label htmlFor={id} className="mr-4 font-medium">
         {label}
       </label>
       <input
