@@ -7,6 +7,10 @@ module.exports = {
   extends: [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "standard",
     "prettier",
   ],
@@ -15,7 +19,8 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["testing-library", "use-encapsulation", "jest-dom", "react"],
+  plugins: ["react", "use-encapsulation", "testing-library", "jest-dom"],
+  rules: { "use-encapsulation/prefer-custom-hooks": 1 },
   settings: {
     react: {
       version: "detect",
