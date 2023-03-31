@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { expect, it } from "vitest";
 import GameOver from "../components/game-over";
 
 it("displays a winning message/image", () => {
