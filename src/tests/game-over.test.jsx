@@ -1,6 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import GameOver from "../components/game-over";
 
+it("renders without crashing", () => {
+  const gameOverRender = render(<GameOver />);
+  expect(gameOverRender).toMatchSnapshot();
+});
+
 it("displays a winning message/image", () => {
   render(<GameOver status="won" />);
 
