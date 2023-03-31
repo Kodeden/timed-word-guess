@@ -1,11 +1,10 @@
-import { fireEvent } from "@testing-library/dom";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
 import { setup } from "./utils";
 
 it("renders the setup screen", () => {
-  const setupRender = render(<App />);
-  expect(setupRender).toMatchSnapshot();
+  const view = render(<App />);
+  expect(view).toMatchSnapshot();
 });
 
 it("calls the player a loser", async () => {
