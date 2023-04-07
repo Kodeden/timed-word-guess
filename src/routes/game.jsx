@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
 import GameOver from "../components/game-over";
+import Timer from "../components/timer";
 
-const getGameStatus = ({ displayedWord, badGuesses, maxBadGuesses }) => {
+const getGameStatus = ({
+  displayedWord,
+  badGuesses,
+  maxBadGuesses,
+  timeRemaining,
+}) => {
   if (!displayedWord.includes("_")) {
     return "won";
   }
 
-  if (badGuesses >= maxBadGuesses) {
+  if (badGuesses >= maxBadGuesses || timeRemaining <= 0) {
     return "lost";
   }
 
@@ -39,12 +45,15 @@ export default function Game({ gameSettings }) {
     word.replace(/[a-z]/gi, "_")
   );
   const [rongGuesses, setRongGuesses] = React.useState(0);
+  const [timeRemaining, setTimeRemaining] = React.useState(
+    Number(gameSettings.maxTime) * 600
+  );
 
   React.useEffect(() => {
-    mainRef.current.focus();
+    hiddenInputRef.current.focus();
   }, []);
 
-  const mainRef = React.useRef(null);
+  const hiddenInputRef = React.useRef(null);
 
   const handleGuess = (e) => {
     const guess = e.key;
@@ -72,20 +81,30 @@ export default function Game({ gameSettings }) {
     displayedWord: wordDisplay,
     badGuesses: rongGuesses,
     maxBadGuesses: maxGuesses,
+    timeRemaining,
   });
 
   return gameStatus === "playing" ? (
-    <main
-      className="flex h-screen flex-col items-center justify-center gap-y-8 outline-none"
-      onKeyDown={handleGuess}
-      tabIndex={0}
-      ref={mainRef}
-    >
+    <main className="flex h-screen flex-col items-center justify-center gap-y-8 outline-none">
       <h1 className="text-4xl font-black">Guess the Word</h1>
+
+      <Timer
+        startingTimeInMinutes={Number(maxTime)}
+        timeRemaining={timeRemaining}
+        setTimeRemaining={setTimeRemaining}
+      />
 
       <p className="text-4xl font-extrabold uppercase tracking-widest">
         {wordDisplay}
       </p>
+
+      {/* Add a hidden input element */}
+      <input
+        ref={hiddenInputRef}
+        onKeyDown={handleGuess}
+        // ⚠️ Don't use 'hidden' or 'invisible' b/c we can't focus 🔍. (same with 'type="hidden"')
+        className="pointer-events-none absolute h-0 w-0 opacity-0"
+      />
     </main>
   ) : (
     <GameOver status={gameStatus} />

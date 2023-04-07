@@ -1,54 +1,52 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
-import { expect, it } from "vitest";
-import userEvent from "@testing-library/user-event";
+import { setup } from "./utils";
 
-// TODO: Update these tests to account for any word
-it("displays 4 dashes", () => {
-  render(<App />);
-  expect(screen.getByText(/____/)).toBeInTheDocument();
+it("renders the setup screen", () => {
+  const view = render(<App />);
+  expect(view).toMatchSnapshot();
 });
 
-it("reveals the letter when guessed", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+it("calls the player a loser", async () => {
+  const { user } = setup(<App />);
 
-  const input = screen.getByLabelText(/guess a letter/i);
+  const wordTextInput = screen.getByLabelText(/word/i);
+  const maxGuessesRangeInput = screen.getByLabelText(/max guesses/i);
+  const submitButton = screen.getByRole("button", { name: /go/i });
 
-  await user.type(input, "b");
+  await user.type(wordTextInput, "hello");
 
-  expect(screen.getByText(/b___/)).toBeInTheDocument();
+  // AFAIK, we can't do range sliders with 'userEvent' yet
+  // https://github.com/testing-library/user-event/issues/871#issuecomment-1059317998
+  fireEvent.change(maxGuessesRangeInput, { target: { value: 5 } });
+
+  await user.click(submitButton);
+
+  // Wait for the underscores to appear ('game' test ✅ already verifies this)
+  await screen.findByText(/_/i);
+
+  // Make 5 incorrect guesses
+  await user.keyboard("asdfg");
+
+  // Wait for the 'loser' message to appear
+  await screen.findByText(/lost/i);
 });
 
-it("reveals the letter when guessed (case-insensitive)", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+it("calls the player a winner", async () => {
+  const { user } = setup(<App />);
 
-  const input = screen.getByLabelText(/guess a letter/i);
+  const wordTextInput = screen.getByLabelText(/word/i);
+  // We're not doing any wrong guesses anyway
+  const submitButton = screen.getByRole("button", { name: /go/i });
 
-  await user.type(input, "B");
+  await user.type(wordTextInput, "hello");
+  await user.click(submitButton);
 
-  expect(screen.getByText(/b___/i)).toBeInTheDocument();
-});
+  // Wait for the underscores to appear ('game' test ✅ already verifies this)
+  await screen.findByText(/_/i);
 
-it("reveals the letter when guessed (multiple times)", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+  await user.keyboard("hello");
 
-  const input = screen.getByLabelText(/guess a letter/i);
-
-  await user.type(input, "b");
-  await user.type(input, "i");
-
-  expect(screen.getByText(/bi/i)).toBeInTheDocument();
-});
-
-it("clears the input after each guess", async () => {
-  const user = userEvent.setup();
-  render(<App />);
-
-  const input = screen.getByLabelText(/guess a letter/i);
-  await user.type(input, "b");
-
-  expect(input).toHaveValue("");
+  // Wait for the 'winner' message to appear
+  await screen.findByText(/won/i);
 });
