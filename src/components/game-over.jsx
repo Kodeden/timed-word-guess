@@ -1,15 +1,8 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import api from "../api";
+import useGameOver from "../hooks/use-game-over";
 
 export default function GameOver({ status }) {
-  const [gif, setGif] = useState(null);
-
-  useEffect(() => {
-    api.show(status === "won" ? "Winner" : "Loser").then((response) => {
-      setGif(response.data[0].images.original.url);
-    });
-  });
+  const gif = useGameOver(status);
 
   return (
     <section className="container mx-auto flex flex-col justify-center">
