@@ -38,14 +38,16 @@ export const replaceUnderscoresWithCorrectGuess = ({
 };
 
 export default function Game({ gameSettings }) {
-  const { word, maxGuesses } = gameSettings;
+  const { word, maxGuesses, maxTime } = gameSettings;
 
   const [wordDisplay, setWordDisplay] = React.useState(
     word.replace(/[a-z]/gi, "_")
   );
   const [rongGuesses, setRongGuesses] = React.useState(0);
   const [timeRemaining, setTimeRemaining] = React.useState(
-    Number(gameSettings.maxTime) * 600
+    Number(maxTime) *
+      // Multiplying by 600 so we can split this time in the Timer component.
+      600
   );
 
   React.useEffect(() => {
