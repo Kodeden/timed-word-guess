@@ -116,4 +116,15 @@ describe("Timer", () => {
 
     expect(timeDisplay).toHaveTextContent("5:29.0");
   });
+
+  test("shows the loser screen when the timer reaches 0", async () => {
+    render(<Game gameSettings={input} />);
+
+    act(() => {
+      // 6 minutes
+      vi.advanceTimersByTime(360000);
+    });
+
+    expect(screen.getByText(/you lost/i)).toBeInTheDocument();
+  });
 });
