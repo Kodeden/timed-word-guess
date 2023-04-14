@@ -1,11 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 
-export default function Timer({
-  startingTimeInMinutes,
-  timeRemaining,
-  setTimeRemaining,
-}) {
+export default function Timer({ timeRemaining, setTimeRemaining }) {
   useEffect(() => {
     if (timeRemaining > 0) {
       const intervalId = setInterval(() => {
@@ -31,7 +27,6 @@ export default function Timer({
 }
 
 Timer.propTypes = {
-  startingTimeInMinutes: PropTypes.number.isRequired,
   timeRemaining: PropTypes.number.isRequired,
   setTimeRemaining: PropTypes.func.isRequired,
 };
