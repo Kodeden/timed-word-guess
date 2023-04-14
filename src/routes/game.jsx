@@ -37,7 +37,6 @@ export const replaceUnderscoresWithCorrectGuess = ({
     .join("");
 };
 
-// TODO: Add timer ⏱️
 export default function Game({ gameSettings }) {
   const { word, maxGuesses, maxTime } = gameSettings;
 
