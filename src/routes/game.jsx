@@ -44,6 +44,8 @@ export default function Game({ gameSettings }) {
     word.replace(/[a-z]/gi, "_")
   );
   const [rongGuesses, setRongGuesses] = React.useState(0);
+
+  // 'timeRemaining' needs to be here in the parent b/c of the game logic ☝️.
   const [timeRemaining, setTimeRemaining] = React.useState(
     Number(maxTime) *
       // Multiplying by 600 so we can split this time in the Timer component.

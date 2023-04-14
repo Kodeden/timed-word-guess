@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import { vi } from "vitest";
 import Game, { replaceUnderscoresWithCorrectGuess } from "../routes/game";
 import { setup } from "./utils";
 
 const input = {
   word: "test",
   maxGuesses: "5",
-  maxTime: "60",
+  maxTime: "6",
 };
 
 const initialUnderscores = input.word.replace(/[a-z]/gi, "_");
@@ -73,4 +74,46 @@ it("reveals the letter when the user guesses correctly", async () => {
   });
 
   expect(screen.getByText(updatedDisplayedWord3)).toBeInTheDocument();
+});
+
+describe("Timer", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+  });
+
+  /**
+   * When using fake timers, you need to remember to restore the timers after your test runs.
+   *
+   * The main reason to do that is to prevent 3rd party libraries running after your test finishes (e.g cleanup
+   * functions), from being coupled to your fake timers and use real timers instead.
+   *
+   * For that you usually call useRealTimers...
+   * https://testing-library.com/docs/using-fake-timers/
+   */
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
+  test("timer reflects the time remaining ('M:SS.S')", async () => {
+    render(<Game gameSettings={input} />);
+
+    const timeDisplay = screen.getByTestId("timer-display");
+
+    // ⚠️ DON'T do a 'waitFor' here b/c the timer starts at 6:00.0.
+    expect(timeDisplay).toHaveTextContent("6:00.0"); // ☝️
+
+    act(() => {
+      // 30 seconds
+      vi.advanceTimersByTime(30000);
+    });
+
+    expect(timeDisplay).toHaveTextContent("5:30.0");
+
+    act(() => {
+      // 1 second
+      vi.advanceTimersByTime(1000);
+    });
+
+    expect(timeDisplay).toHaveTextContent("5:29.0");
+  });
 });

@@ -19,7 +19,7 @@ export default function Timer({ timeRemaining, setTimeRemaining }) {
   const tenths = timeRemaining % 10;
 
   return (
-    <p>
+    <p data-testid="timer-display">
       {minutes}:{seconds.toString().padStart(2, "0")}.{tenths}
       ⏱️
     </p>
