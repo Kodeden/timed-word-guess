@@ -1,6 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import Game, { replaceUnderscoresWithCorrectGuess } from "../routes/game";
+import { replaceUnderscoresWithCorrectGuess } from "../hooks/use-game";
+import Game from "../routes/game";
 import { setup } from "./utils";
 
 const input = {
