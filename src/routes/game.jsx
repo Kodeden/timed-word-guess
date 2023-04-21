@@ -7,6 +7,9 @@ export default function Game({ gameSettings }) {
   const {
     gameStatus,
     wordDisplay,
+
+    // ⚠️ We need to pass these down to the Timer component.
+    // `useGame` uses the time information ℹ️ differently from `useTimer`.
     timeRemaining,
     setTimeRemaining,
     handleGuess,
